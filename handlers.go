@@ -105,7 +105,7 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		templ.Execute(w, nil)
 	case "POST":
-		templ, err := template.ParseFiles("contact.html")
+		templ, err := template.ParseFiles("html-file/contact.html")
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			fmt.Fprintf(w, "Error: loading.. %v", err)

@@ -19,7 +19,10 @@ func main() {
 	http.HandleFunc("/contact", contactHandler)
 	http.HandleFunc("/registration", registrationHandler)
 	http.HandleFunc("/profile", profileHandler)
+	http.HandleFunc("GET /admin/login", adminHandler)
+	http.HandleFunc("POST /admin/login", adminLoginHandler)
+	http.HandleFunc("/admin", adminDashboardHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	fmt.Println("Loading Server At: http://localhost:8080/")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Println("Loading Server At: http://localhost:3000/")
+	log.Fatal(http.ListenAndServe(":3000", nil))
 }

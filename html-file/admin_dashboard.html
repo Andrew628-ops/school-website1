@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Submissions</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent-primary: #2563eb;
+            --accent-secondary: #0d9488;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 40px 0 20px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h2:first-of-type {
+            margin-top: 0;
+            color: var(--accent-primary);
+        }
+        h2:nth-of-type(2) {
+            color: var(--accent-secondary);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .data-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .data-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-name {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        /* Data Fields Blueprint */
+        .field-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            padding: 6px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .field-row:last-of-type {
+            border-bottom: none;
+        }
+        .field-label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .field-value {
+            color: var(--text-main);
+            font-weight: 400;
+            text-align: right;
+            padding-left: 15px;
+        }
+
+        /* Message Box Specifics */
+        .message-box {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+        .message-text {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 4px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Registration Submissions</h2>
+    <div class="grid-container">
+        {{range .Registrations}}
+        <div class="data-card">
+            <div class="card-name">{{.FirstName}} {{.MiddleName}} {{.LastName}}</div>
+            
+            <div class="field-row">
+                <span class="field-label">Email:</span>
+                <span class="field-value">{{.Email}}</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Phone:</span>
+                <span class="field-value">{{.PhoneNo}}</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Course:</span>
+                <span class="field-value">{{.CourseOfStudy}}</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Nationality:</span>
+                <span class="field-value">{{.Nationality}}</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">State of Origin:</span>
+                <span class="field-value">{{.StateOfOrigin}}</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">LGA:</span>
+                <span class="field-value">{{.LGAOfOrigin}}</span>
+            </div>
+        </div>
+        {{end}}
+    </div>
+
+    <h2>Contact Messages</h2>
+    <div class="grid-container">
+        {{range .Contacts}}
+        <div class="data-card">
+            <div class="card-name">{{.FirstName}} {{.LastName}}</div>
+            
+            <div class="field-row">
+                <span class="field-label">Email:</span>
+                <span class="field-value">{{.Email}}</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Phone:</span>
+                <span class="field-value">{{.PhoneNo}}</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Address:</span>
+                <span class="field-value">{{.Address}}</span>
+            </div>
+            
+            <div class="message-box">
+                <span class="field-label">Message:</span>
+                <div class="message-text">{{.Message}}</div>
+            </div>
+        </div>
+        {{end}}
+    </div>
+
+</body>
+</html>
