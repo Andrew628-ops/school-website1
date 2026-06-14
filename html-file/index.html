@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - University of Excellence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body.b {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background-color: #f7fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        header a {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            max-width: 1200px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        header img {
+            object-fit: contain;
+            border-radius: 50%;
+            border: 2px solid #e2e8f0;
+        }
+
+        header h1 {
+            color: #0f4c81; 
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .navigation {
+            width: 100%;
+            background-color: #0f4c81;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navigation ul {
+            max-width: 1000px;
+            margin: 0 auto;
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .navigation li {
+            display: inline-block;
+        }
+
+        .navigation a {
+            display: block;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 18px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .navigation a:hover {
+            color: #d69e2e; /* Warm Gold */
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .hero {
+            width: 100%;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #0f4c81 0%, #1d70b8 100%);
+            color: #ffffff;
+            text-align: center;
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.05);
+        }
+
+        .hero .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: #e2e8f0;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: #d69e2e; 
+            color: #1a202c;
+            text-decoration: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(214, 158, 46, 0.4);
+            transition: all 0.3s ease;
+            margin-bottom: 60px;
+        }
+
+        .cta-btn:hover {
+            background-color: #e5a93c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(214, 158, 46, 0.6);
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .stat-card {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #d69e2e; 
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-label a {
+            color: #ffffff;
+            text-decoration: none;
+            border-bottom: 1px dashed rgba(255,255,255,0.5);
+        }
+
+        .stat-label a:hover {
+            color: #d69e2e;
+            border-bottom-color: #d69e2e;
+        }
+
+        @media (max-width: 768px) {
+            header a {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            header img {
+                width: 100px !important;
+                height: 100px !important;
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+            .navigation ul {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            .navigation a {
+                padding: 10px 20px;
+                text-align: center;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero .tagline {
+                font-size: 1.1rem;
+            }
+            .stats-grid {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body class="b">
+
+    <header>
+        <a href="/">
+            <img src="/static/logo.png" alt="University Of Excellence" width="100px" height="100px"> 
+            <h1>University Of Excellence</h1>
+        </a>
+    </header>
+
+    <nav class="navigation">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about" id="about">About Us</a></li>
+            <li><a href="/timetable" id="time">Time Schedule</a></li>
+            <li><a href="/contact" id="con">Contact</a></li>
+            <li><a href="/registration" id="reg">Registration</a></li>
+            <li><a href="/news" id="nws">News</a></li>
+            <li><a href="/profile" id="pf">Profile</a></li>
+        </ul>
+    </nav>
+
+     <section class="hero">
+        <div class="container">
+            <h1>Welcome to University Of Excellence</h1>
+            <p class="tagline">Inspiring Knowledge, Empowering Leaders</p>
+            
+            <a href="/registration" class="cta-btn">Register Now</a>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Students</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label"><a href="/profile">Teachers</a></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label"><a href="/timetable">Courses</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+</body>
+</html>

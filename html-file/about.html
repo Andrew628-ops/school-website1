@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Excellence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #2d3748;
+            background-color: #f7fafc;
+            padding: 0 0 60px 0; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .navigation {
+            width: 100%;
+            background-color: #0f4c81;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            margin-bottom: 40px;
+        }
+
+        .navigation ul {
+            max-width: 800px;
+            margin: 0 auto;
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .navigation li {
+            display: inline-block;
+        }
+
+        .navigation a {
+            display: block;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 18px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .navigation a:hover {
+            color: #d69e2e;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border-top: 6px solid #0f4c81;
+        }
+
+        h1 {
+            color: #0f4c81;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .motto-box {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .motto-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #718096;
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .motto-text {
+            font-size: 1.15rem;
+            color: #4a5568;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        h3 {
+            color: #1a202c;
+            font-size: 1.4rem;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h3::after {
+            content: '';
+            display: block;
+            width: 35px;
+            height: 3px;
+            background-color: #d69e2e;
+            margin-top: 4px;
+            border-radius: 2px;
+        }
+
+        p {
+            font-size: 1.05rem;
+            color: #4a5568;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .navigation ul {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            .navigation a {
+                padding: 10px 20px;
+                text-align: center;
+            }
+            .container {
+                padding: 20px;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navigation">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about" id="about">About Us</a></li>
+            <li><a href="/timetable" id="time">Time Schedule</a></li>
+            <li><a href="/contact" id="con">Contact</a></li>
+            <li><a href="/registration" id="reg">Registration</a></li>
+            <li><a href="/news" id="nws">News</a></li>
+            <li><a href="/profile" id="pf">Profile</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>University Of Excellence</h1>
+
+        <div class="motto-box">
+            <span class="motto-title">motto</span>
+            <p class="motto-text">Inspiring Knowledge, Empowering Leaders, Transforming Society.</p>
+        </div>
+
+        <h3>School Goal</h3>
+        <p>To provide high-quality education, 
+           foster innovation and critical thinking, 
+           promote ethical leadership, and empower students with the knowledge, 
+           skills, and values needed to excel in their careers and 
+           contribute positively to society and global development.
+        </p>
+
+        <h3>School Mission</h3>
+        <p>The mission of the University of Excellence is to provide a world-class education 
+           through innovative teaching, impactful research, and community engagement. 
+           We are committed to developing knowledgeable, skilled, and ethical graduates 
+           who can lead with integrity, embrace lifelong learning, and contribute to the 
+           advancement of society at local, national, and global levels.</p>
+    </div>
+    
+</body>
+</html>

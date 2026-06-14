@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publish News - University of Excellence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background-color: #f7fafc;
+            padding: 0 0 60px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .navigation {
+            width: 100%;
+            background-color: #0f4c81; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            margin-bottom: 40px;
+        }
+
+        .navigation ul {
+            max-width: 800px;
+            margin: 0 auto;
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .navigation li {
+            display: inline-block;
+        }
+
+        .navigation a {
+            display: block;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 18px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .navigation a:hover {
+            color: #d69e2e; 
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        #nws {
+            color: #d69e2e;
+            border-bottom: 2px solid #d69e2e;
+        }
+
+        .editor-container {
+            max-width: 750px;
+            width: 100%;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border-top: 6px solid #0f4c81;
+        }
+
+        .editor-container h2 {
+            color: #0f4c81;
+            margin-bottom: 5px;
+            font-size: 1.8rem;
+        }
+
+        .editor-container p.subtitle {
+            color: #718096;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 24px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #4a5568;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            color: #2d3748;
+            background-color: #ffffff;
+            transition: all 0.25s ease-in-out;
+        }
+
+        input[type="text"] {
+            font-weight: 600; 
+            font-size: 1.1rem;
+        }
+
+        textarea {
+            height: 280px; 
+            resize: vertical;
+            line-height: 1.7;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #0f4c81;
+            box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.15);
+        }
+
+        ::placeholder {
+            color: #a0aec0;
+            font-weight: 400;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            background-color: #0f4c81;
+            color: #ffffff;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0b3860;
+        }
+
+        @media (max-width: 600px) {
+            .navigation ul {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            .navigation a {
+                padding: 10px 20px;
+                text-align: center;
+            }
+            .editor-container {
+                padding: 25px 20px;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    {{range .NewsItem}}
+        <h2>{{.Headline}}</h2> 
+        <p>{{.Article}}</p> 
+        <p>{{.Date}}</p>
+    {{end}}
+    <nav class="navigation">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about" id="about">About Us</a></li>
+            <li><a href="/timetable" id="time">Time Schedule</a></li>
+            <li><a href="/contact" id="con">Contact</a></li>
+            <li><a href="/registration" id="reg">Registration</a></li>
+            <li><a href="/news" id="nws">News</a></li>
+            <li><a href="/profile" id="pf">Profile</a></li>
+        </ul>
+    </nav>
+
+    <div class="editor-container">
+        <h2>Publish Campus News</h2>
+        <p class="subtitle">Create and broadcast announcements to the university portal.</p>
+
+        <form action="/news" method="post">
+            <div class="form-group">
+                <label for="Article-Headline">Headline</label>
+                <input type="text" id="Article-Headline" name="headline" placeholder="Enter article headline...">
+            </div>
+
+            <div class="form-group">
+                <label for="Article-Text">Article Body</label>
+                <textarea name="article" id="Article-Text" placeholder="Start typing the news content here..."></textarea>
+            </div>
+
+            <button type="submit">Submit Article</button>
+        </form>
+    </div>
+    
+</body>
+</html>
