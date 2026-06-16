@@ -68,7 +68,7 @@ func newsHandler(w http.ResponseWriter, r *http.Request) {
 			"NewsItem": GetNews(),
 		})
 	case "POST":
-		templ, err := template.ParseFiles("news.html")
+		templ, err := template.ParseFiles("html-file/news.html")
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			fmt.Fprintf(w, "Error: loading server%v", err)
@@ -147,7 +147,7 @@ func registrationHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		templ.Execute(w, nil)
 	case "POST":
-		templ, err := template.ParseFiles("registration.html")
+		templ, err := template.ParseFiles("html-file/registration.html")
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			fmt.Fprintf(w, "Error: loading... %v", err)
@@ -198,7 +198,7 @@ func profileHandler(w http.ResponseWriter, r *http.Request) {
 			"Teachers": GetTeachers(),
 		})
 	case "POST":
-		templ, err := template.ParseFiles("profile.html")
+		templ, err := template.ParseFiles("html-file/profile.html")
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			fmt.Fprintf(w, "Error: loading server.. %v", err)
