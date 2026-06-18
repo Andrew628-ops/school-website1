@@ -18,6 +18,11 @@
             --accent-primary: #2563eb;
             --accent-secondary: #0d9488;
             --border-color: #e2e8f0;
+            --danger-color: #ef4444;
+            --danger-hover: #dc2626;
+            --edit-hover: #1d4ed8;
+            --indigo-primary: #4f46e5;
+            --indigo-hover: #4338ca;
         }
 
         body {
@@ -47,6 +52,24 @@
         h2:nth-of-type(2) {
             color: var(--accent-secondary);
         }
+        h2:nth-of-type(3) {
+            color: var(--indigo-primary);
+        }
+
+        /* Header Container for Profile Edit & Add Button Alignment */
+        .section-header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin: 40px 0 20px 0;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+        .section-header-container h2 {
+            margin: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
 
         .grid-container {
             display: grid;
@@ -61,6 +84,9 @@
             padding: 24px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         .data-card:hover {
             transform: translateY(-2px);
@@ -94,6 +120,7 @@
             font-weight: 400;
             text-align: right;
             padding-left: 15px;
+            word-break: break-all;
         }
 
         /* Message Box Specifics */
@@ -101,6 +128,7 @@
             margin-top: 12px;
             padding-top: 12px;
             border-top: 1px solid var(--border-color);
+            flex-grow: 1;
         }
         .message-text {
             font-size: 0.9rem;
@@ -111,16 +139,63 @@
             margin-top: 4px;
             white-space: pre-wrap;
         }
+
+        /* Form and Action Button Layout */
+        .card-actions {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+
+        .btn-delete, .btn-edit, .btn-add {
+            border: none;
+            border-radius: 6px;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+        }
+
+        .btn-delete {
+            width: 100%;
+            background-color: var(--danger-color);
+            color: #ffffff;
+        }
+        .btn-delete:hover {
+            background-color: var(--danger-hover);
+        }
+
+        .btn-edit {
+            width: 100%;
+            background-color: var(--accent-primary);
+            color: #ffffff;
+        }
+        .btn-edit:hover {
+            background-color: var(--edit-hover);
+        }
+
+        /* Add New Button Style */
+        .btn-add {
+            background-color: var(--indigo-primary);
+            color: #ffffff;
+            font-size: 0.85rem;
+            padding: 8px 14px;
+        }
+        .btn-add:hover {
+            background-color: var(--indigo-hover);
+        }
     </style>
 </head>
 <body>
-
     <h2>Registration Submissions</h2>
     <div class="grid-container">
         {{range .Registrations}}
         <div class="data-card">
             <div class="card-name">{{.FirstName}} {{.MiddleName}} {{.LastName}}</div>
-            
+                                    
             <div class="field-row">
                 <span class="field-label">Email:</span>
                 <span class="field-value">{{.Email}}</span>
@@ -145,16 +220,21 @@
                 <span class="field-label">LGA:</span>
                 <span class="field-value">{{.LGAOfOrigin}}</span>
             </div>
+
+            <form action="/admin/delete-registration" method="post" class="card-actions" onsubmit="return confirm('Are you sure you want to delete this submission?');">
+                <input type="hidden" name="id" value="{{.ID}}">
+                <input type="submit" value="Delete Submission" class="btn-delete">
+            </form>
         </div>
         {{end}}
     </div>
-
+                
     <h2>Contact Messages</h2>
     <div class="grid-container">
         {{range .Contacts}}
         <div class="data-card">
             <div class="card-name">{{.FirstName}} {{.LastName}}</div>
-            
+                                    
             <div class="field-row">
                 <span class="field-label">Email:</span>
                 <span class="field-value">{{.Email}}</span>
@@ -167,14 +247,49 @@
                 <span class="field-label">Address:</span>
                 <span class="field-value">{{.Address}}</span>
             </div>
-            
+                                    
             <div class="message-box">
                 <span class="field-label">Message:</span>
                 <div class="message-text">{{.Message}}</div>
             </div>
+
+            <form action="/admin/delete-contact" method="post" class="card-actions" onsubmit="return confirm('Are you sure you want to delete this message?');">
+                <input type="hidden" name="id" value="{{.ID}}">
+                <input type="submit" value="Delete Message" class="btn-delete">
+            </form>
         </div>
         {{end}}
     </div>
 
+    <!-- Flex header container to align the section title and action link beautifully -->
+    <div class="section-header-container">
+        <h2>Profile Edit</h2>
+        <a href="/admin/add-teacher" class="btn-add">Add New Teacher</a>
+    </div>
+
+    <div class="grid-container">
+        {{range .Teachers}}
+        <div class="data-card">
+            <div class="card-name">{{.Name}}</div>
+                                    
+            <div class="field-row">
+                <span class="field-label">Subject:</span>
+                <span class="field-value">{{.Subject}}</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Department:</span>
+                <span class="field-value">{{.Department}}</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Img:</span>
+                <span class="field-value">{{.Image}}</span>
+            </div>
+                                     
+            <div class="card-actions">
+                <a href="/admin/edit-teacher?id={{.ID}}" class="btn-edit">Edit Profile</a>
+            </div>
+        </div>
+        {{end}}
+    </div>
 </body>
 </html>

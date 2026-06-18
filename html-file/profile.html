@@ -142,83 +142,7 @@
             font-weight: 500;
         }
 
-        form {
-            background: #ffffff;
-            max-width: 600px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            border-top: 6px solid #0f4c81;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #4a5568;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #cbd5e0;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            color: #2d3748;
-            transition: all 0.25s ease;
-        }
-
-        input[type="text"]:focus {
-            outline: none;
-            border-color: #0f4c81;
-            box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.15);
-        }
-
-        input[type="submit"] {
-            width: 100%;
-            background-color: #0f4c81;
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0b3860;
-        }
-
-        @media (max-width: 768px) {
-            .navigation ul {
-                flex-direction: column;
-                padding: 10px 0;
-            }
-            .navigation a {
-                padding: 10px 20px;
-                text-align: center;
-            }
-            form {
-                padding: 25px 20px;
-                border-radius: 0;
-            }
-        }
+        
     </style>
 </head>
 <body>
@@ -334,32 +258,6 @@
             </div>
             {{end}}
         </div>
-
-        <h2 class="section-header" style="text-align: center;">Add New Faculty Profile</h2>
-        
-        <form action="/profile" method="post">
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" placeholder="e.g. Dr. Jane Doe" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="sub">Subject / Course</label>
-                <input type="text" id="sub" name="sub" placeholder="e.g. Digital Logic Design" required>
-            </div>
-
-            <div class="form-group">
-                <label for="department">Department</label>
-                <input type="text" id="department" name="department" placeholder="e.g. Computer Engineering" required>
-            </div>
-
-            <div class="form-group">
-                <label for="imageurl">Image URL</label>
-                <input type="text" id="imageurl" name="imageurl" placeholder="https://example.com">
-            </div>
-
-            <input type="submit" value="Submit Profile">
-        </form>
 
     </div>
     

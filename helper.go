@@ -11,6 +11,7 @@ import (
 var db *sql.DB
 
 type Teacher struct {
+	ID         int
 	Name       string
 	Subject    string
 	Department string
@@ -18,6 +19,7 @@ type Teacher struct {
 }
 
 type Registration struct {
+	ID            int
 	FirstName     string
 	MiddleName    string
 	LastName      string
@@ -30,6 +32,7 @@ type Registration struct {
 }
 
 type Contact struct {
+	ID        int
 	FirstName string
 	LastName  string
 	Email     string
@@ -125,7 +128,7 @@ func GetNews() []News {
 }
 
 func GetRegistrations() []Registration {
-	rows, err := db.Query(`SELECT firstname, middlename, lastname, email, phoneno, course, nationality, stateoforigin, lgaorigin FROM registrations`)
+	rows, err := db.Query(`SELECT id, firstname, middlename, lastname, email, phoneno, course, nationality, stateoforigin, lgaorigin FROM registrations`)
 	if err != nil {
 		return nil
 	}
@@ -135,7 +138,7 @@ func GetRegistrations() []Registration {
 
 	for rows.Next() {
 		var r Registration
-		rows.Scan(&r.FirstName, &r.MiddleName, &r.LastName, &r.Email, &r.PhoneNo, &r.CourseOfStudy, &r.Nationality, &r.StateOfOrigin, &r.LGAOfOrigin)
+		rows.Scan(&r.ID, &r.FirstName, &r.MiddleName, &r.LastName, &r.Email, &r.PhoneNo, &r.CourseOfStudy, &r.Nationality, &r.StateOfOrigin, &r.LGAOfOrigin)
 		results = append(results, r)
 	}
 
@@ -143,7 +146,7 @@ func GetRegistrations() []Registration {
 }
 
 func GetContacts() []Contact {
-	rows, err := db.Query(`SELECT firstname, lastname, email, phoneno, address, message FROM contacts`)
+	rows, err := db.Query(`SELECT id, firstname, lastname, email, phoneno, address, message FROM contacts`)
 	if err != nil {
 		return nil
 	}
@@ -153,7 +156,7 @@ func GetContacts() []Contact {
 
 	for rows.Next() {
 		var c Contact
-		rows.Scan(&c.FirstName, &c.LastName, &c.Email, &c.PhoneNo, &c.Address, &c.Message)
+		rows.Scan(&c.ID, &c.FirstName, &c.LastName, &c.Email, &c.PhoneNo, &c.Address, &c.Message)
 		results = append(results, c)
 	}
 
@@ -161,7 +164,7 @@ func GetContacts() []Contact {
 }
 
 func GetTeachers() []Teacher {
-	rows, err := db.Query(`SELECT name, subject, department, image FROM teachers`)
+	rows, err := db.Query(`SELECT id, name, subject, department, image FROM teachers`)
 	if err != nil {
 		return nil
 	}
@@ -171,10 +174,30 @@ func GetTeachers() []Teacher {
 
 	for rows.Next() {
 		var t Teacher
-		rows.Scan(&t.Name, &t.Subject, &t.Department, &t.Image)
+		rows.Scan(&t.ID, &t.Name, &t.Subject, &t.Department, &t.Image)
 		results = append(results, t)
 
 	}
 
 	return results
+}
+
+func DeleteRegistration(id int) {
+	db.Exec(`DELETE FROM registrations WHERE id = ?`, id)
+}
+
+func DeleteContact(id int) {
+	db.Exec(`DELETE FROM contacts WHERE id = ?`, id)
+}
+
+func GetTeacherById(id int) Teacher {
+	rows := db.QueryRow(`SELECT id, name, subject, department, image FROM teachers WHERE id = ?`, id)
+
+	var t Teacher
+	rows.Scan(&t.ID, &t.Name, &t.Subject, &t.Department, &t.Image)
+	return t
+}
+
+func UpdateTeacher(t Teacher) {
+	db.Exec(`UPDATE teachers SET name = ?, subject = ?, department = ?, image = ? WHERE id = ?`, t.Name, t.Subject, t.Department, t.Image, t.ID)
 }

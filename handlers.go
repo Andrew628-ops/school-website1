@@ -197,30 +197,7 @@ func profileHandler(w http.ResponseWriter, r *http.Request) {
 		templ.Execute(w, map[string]interface{}{
 			"Teachers": GetTeachers(),
 		})
-	case "POST":
-		templ, err := template.ParseFiles("html-file/profile.html")
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			fmt.Fprintf(w, "Error: loading server.. %v", err)
-			return
-		}
 
-		name := r.FormValue("name")
-		subject := r.FormValue("sub")
-		dept := r.FormValue("department")
-		image := r.FormValue("imageurl")
-
-		result := Teacher{
-			Name:       name,
-			Subject:    subject,
-			Department: dept,
-			Image:      image,
-		}
-		AddProfile(result)
-
-		templ.Execute(w, map[string]interface{}{
-			"Teachers": GetTeachers(),
-		})
 	default:
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		fmt.Fprintf(w, "Error: method not allowed")

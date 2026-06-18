@@ -12,6 +12,7 @@ func main() {
 		fmt.Printf("Error: %v", err)
 		return
 	}
+
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/about", aboutHandler)
 	http.HandleFunc("/timetable", timeTableHandler)
@@ -22,7 +23,11 @@ func main() {
 	http.HandleFunc("GET /admin/login", adminHandler)
 	http.HandleFunc("POST /admin/login", adminLoginHandler)
 	http.HandleFunc("/admin", adminDashboardHandler)
+	http.HandleFunc("/admin/delete-registration", deleteRegistrationHandler)
+	http.HandleFunc("/admin/delete-contact", deleteContactHandler)
+	http.HandleFunc("/admin/edit-teacher", editTeacherHandler)
+	http.HandleFunc("/admin/add-teacher", addTeacherHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	fmt.Println("Loading Server At: http://localhost:3000/")
-	log.Fatal(http.ListenAndServe(":3000", nil))
+	fmt.Println("Loading Server At: http://localhost:8080/")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
