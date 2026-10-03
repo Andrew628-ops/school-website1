@@ -1,0 +1,43 @@
+{{template "head" .}}<main id="main">
+<section class="page-hero container">
+<p class="eyebrow">Academics at Excellence</p>
+<h1>Find your path.<br>Make it <em>your own.</em>
+</h1>
+<p>Explore twelve undergraduate programmes across six academic schools. Start with what interests you. Discover where it can take you.</p>
+</section>
+<section class="container catalogue-section">
+<form action="/programs" class="filter-bar">
+<div class="search-field">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#search"/>
+</svg>
+<label for="program-query" class="sr-only">Search programmes</label>
+<input type="search" id="program-query" name="q" value="{{.Query}}" placeholder="Search programmes or interests">
+</div>
+<label class="sr-only" for="school">Academic school</label>
+<select id="school" name="school">
+<option value="">All academic schools</option>{{range .Schools}}<option value="{{.}}" {{if eq $.School .}}selected{{end}}>{{.}}</option>{{end}}</select>
+<button class="button" type="submit">Find programmes</button>
+</form>
+<div class="results-line">
+<span>{{len .Programs}} programmes{{if .Query}} matching “{{.Query}}”{{end}}</span>{{if or .Query .School}}<a href="/programs" class="text-link">Clear filters ×</a>{{else}}<span>Undergraduate · {{.AcademicYear}}</span>{{end}}</div>
+<div class="grid-three">{{range .Programs}}{{template "program-card" .}}{{else}}<div class="empty-state full-width">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#search"/>
+</svg>
+<h2>No programmes found.</h2>
+<p>Try a different keyword or choose another academic school.</p>
+<a href="/programs" class="button button-outline">View all programmes</a>
+</div>{{end}}</div>
+</section>
+<section class="container help-strip">
+<div>
+<h3>A little guidance goes a long way.</h3>
+<p>Our admissions team can help you explore your options.</p>
+</div>
+<a href="/contact" class="text-link">Ask us a question <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</a>
+</section>
+</main>{{template "footer" .}}
