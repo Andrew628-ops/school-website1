@@ -1,0 +1,39 @@
+{{template "head" .}}<main id="main" class="container editor-page">
+<a href="/admin?tab=news" class="back-link">← Campus news</a>
+<p class="eyebrow">University workspace</p>
+<h1>{{.Title}}</h1>{{template "notices" .}}<form method="post" action="{{if .Editing}}/admin/edit-news{{else}}/admin/add-news{{end}}" class="form-card">
+<input type="hidden" name="csrf" value="{{.CSRF}}">{{if .Editing}}<input type="hidden" name="id" value="{{.Article.ID}}">{{end}}<div class="field">
+<label for="headline">Headline</label>
+<input id="headline" name="headline" value="{{index .Form "headline"}}" maxlength="150" required>
+</div>
+<div class="form-grid">
+<div class="field">
+<label for="category">Category</label>
+<input list="news-categories" id="category" name="category" value="{{index .Form "category"}}" maxlength="100" required>
+<datalist id="news-categories">
+<option value="Research">
+<option value="Admissions">
+<option value="Campus life">
+<option value="Campus">
+</datalist>
+</div>
+<div class="field">
+<label for="image">Image path or HTTPS URL <span class="optional">Optional</span>
+</label>
+<input id="image" name="image" value="{{index .Form "image"}}" maxlength="150" placeholder="/static/campus.png">
+</div>
+</div>
+<div class="field">
+<label for="article">Your story</label>
+<textarea id="article" name="article" rows="14" maxlength="10000" required>{{index .Form "article"}}</textarea>
+<p class="field-hint">Separate paragraphs with a blank line. Published stories appear on the public news page.</p>
+</div>
+<div class="button-row">
+<button type="submit" class="button">{{if .Editing}}Save story{{else}}Publish story{{end}} <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#check"/>
+</svg>
+</button>
+<a href="/admin?tab=news" class="text-link">Cancel</a>
+</div>
+</form>
+</main>{{template "footer" .}}
