@@ -1,0 +1,32 @@
+{{template "head" .}}<main id="main">
+<section class="container page-hero">
+<p class="eyebrow">The university calendar</p>
+<h1>Make room for<br>something <em>new.</em>
+</h1>
+<p>Meet new people. Hear a new perspective. Discover something that stays with you. Find your next campus experience.</p>
+</section>
+<section class="container catalogue-section">
+<div class="section-heading">
+<h2>Coming up on campus.</h2>
+<span class="small muted">Calendar downloads include a two-hour event slot.</span>
+</div>
+<div class="event-list events-full">{{range .Events}}<div>{{template "event-card" .}}<p class="event-description">{{.Description}}</p>
+</div>{{else}}<div class="empty-state">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#calendar"/>
+</svg>
+<h2>A little space in the calendar.</h2>
+<p>New university events will be announced here. Check back soon.</p>
+</div>{{end}}</div>
+</section>
+<section class="container help-strip">
+<div>
+<h3>Planning a campus visit?</h3>
+<p>Get in touch and tell us what you'd like to explore.</p>
+</div>
+<a href="/contact" class="text-link">Let's plan your visit <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</a>
+</section>
+</main>{{template "footer" .}}
