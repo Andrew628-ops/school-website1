@@ -1,0 +1,239 @@
+{{define "head"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Discover a world of possibilities at the University of Excellence. Explore programmes, university life, admissions, and your next chapter.">
+<title>{{.Title}} · University of Excellence</title>
+<link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+<link rel="stylesheet" href="/static/site.css">
+<script src="/static/site.js" defer>
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="utility-bar">
+<div class="container utility-inner">
+<span>Inspiring knowledge. Empowering leaders.</span>
+<div>
+<a href="/timetable">Student resources</a>
+<a href="/profile">Our faculty</a>
+<a href="/admin">Staff portal <span aria-hidden="true">↗</span>
+</a>
+</div>
+</div>
+</div>
+<header class="site-header">
+<div class="container header-inner">
+<a class="brand" href="/" aria-label="University of Excellence home">
+<img src="/static/favicon.svg" width="48" height="48" alt="">
+<span>University of<span class="brand-name">Excellence</span>
+</span>
+</a>
+<button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="main-nav" aria-expanded="false">
+<span>
+</span>
+<span>
+</span>
+<span>
+</span>
+</button>
+<nav id="main-nav" class="main-nav" aria-label="Main navigation">
+<a href="/about" {{if eq .Active "about"}}aria-current="page"{{end}}>About us</a>
+<a href="/programs" {{if eq .Active "programs"}}aria-current="page"{{end}}>Academics</a>
+<a href="/admissions" {{if eq .Active "admissions"}}aria-current="page"{{end}}>Admissions</a>
+<a href="/campus-life" {{if eq .Active "campus"}}aria-current="page"{{end}}>Campus life</a>
+<a href="/news" {{if or (eq .Active "news") (eq .Active "events")}}aria-current="page"{{end}}>News & events</a>
+<a href="/search" class="search-toggle icon-button" aria-label="Search the university">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#search"/>
+</svg>
+</a>
+<a href="/registration" class="button button-small">Apply now <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</a>
+</nav>
+</div>
+</header>
+<dialog id="search-dialog" class="search-dialog">
+<button type="button" class="dialog-close icon-button" aria-label="Close search">×</button>
+<p class="eyebrow">Explore Excellence</p>
+<h2>What are you looking for?</h2>
+<form action="/search" class="search-form">
+<label class="sr-only" for="dialog-query">Search the university</label>
+<input id="dialog-query" name="q" type="search" placeholder="Programmes, faculty, campus life…" required>
+<button class="button" type="submit">Search <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#search"/>
+</svg>
+</button>
+</form>
+<p class="muted">Try “computer science”, “admissions”, or “campus”.</p>
+</dialog>
+{{end}}
+{{define "footer"}}
+<footer class="site-footer">
+<div class="container footer-grid">
+<div class="footer-brand">
+<a class="brand" href="/">
+<img src="/static/favicon.svg" width="48" height="48" alt="">
+<span>University of<span class="brand-name">Excellence</span>
+</span>
+</a>
+<p>A place for curious minds.<br>A community for brighter futures.</p>
+<a class="text-link" href="/contact">Let's connect <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</a>
+</div>
+<div>
+<h3>Discover</h3>
+<a href="/about">About the university</a>
+<a href="/programs">Our programmes</a>
+<a href="/profile">Our faculty</a>
+<a href="/campus-life">Campus life</a>
+</div>
+<div>
+<h3>Your next step</h3>
+<a href="/admissions">Admissions</a>
+<a href="/registration">Apply to Excellence</a>
+<a href="/application-status">Track your application</a>
+<a href="/contact">Ask a question</a>
+</div>
+<div>
+<h3>Stay connected</h3>
+<a href="/news">University news</a>
+<a href="/events">Campus events</a>
+<a href="/timetable">Academic timetable</a>
+<a href="/admin">Staff portal</a>
+</div>
+</div>
+<div class="container footer-bottom">
+<span>© University of Excellence · {{.AcademicYear}}</span>
+<span>Student project · Sample university content and campus image</span>
+</div>
+</footer>
+</body>
+</html>
+{{end}}
+{{define "notices"}}{{if .Error}}<div class="alert alert-error" role="alert">
+<strong>Please check your details</strong>
+<p>{{.Error}}</p>
+</div>{{end}}{{if .Notice}}<div class="alert alert-success" role="status">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#check"/>
+</svg>
+<p>{{.Notice}}</p>
+</div>{{end}}{{end}}
+{{define "program-card"}}<article class="program-card {{.Color}}">
+<div class="card-top">
+<span class="program-icon">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#{{.Icon}}"/>
+</svg>
+</span>
+<span class="small-label">{{.Degree}} · {{.Duration}}</span>
+</div>
+<p class="eyebrow">{{.School}}</p>
+<h3>
+<a href="/programs/{{.Slug}}">{{.Name}}</a>
+</h3>
+<p>{{.Summary}}</p>
+<a class="card-link" href="/programs/{{.Slug}}">Explore programme <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</a>
+</article>{{end}}
+{{define "news-card"}}<article class="news-card">
+<a class="news-art {{if eq .Category "Research"}}mint{{else if eq .Category "Admissions"}}peach{{else}}lavender{{end}}" href="/news/{{.ID}}" tabindex="-1" aria-hidden="true">{{if .Image}}<img src="{{.Image}}" alt="" loading="lazy">{{else}}<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#{{if eq .Category "Research"}}spark{{else if eq .Category "Admissions"}}cap{{else}}users{{end}}"/>
+</svg>
+<span>EXCELLENCE / {{.Category}}</span>{{end}}</a>
+<div class="news-meta">
+<span>{{.Category}}</span>
+<time>{{date .Date}}</time>
+</div>
+<h3>
+<a href="/news/{{.ID}}">{{.Headline}}</a>
+</h3>
+<p>{{excerpt .Article}}</p>
+<a class="text-link" href="/news/{{.ID}}">Read the story <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</a>
+</article>{{end}}
+{{define "event-card"}}<article class="event-card">
+<div class="event-date">
+<span>{{month .Start}}</span>
+<strong>{{day .Start}}</strong>
+</div>
+<div class="event-body">
+<span class="eyebrow">{{.Category}}</span>
+<h3>{{.Title}}</h3>
+<p class="event-meta">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#clock"/>
+</svg>{{eventTime .Start}}</p>
+<p class="event-meta">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#location"/>
+</svg>{{.Location}}</p>
+</div>
+<a href="/events/{{.ID}}/calendar" class="icon-button calendar-link" aria-label="Add {{.Title}} to your calendar">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#download"/>
+</svg>
+</a>
+</article>{{end}}
+{{define "cta"}}<section class="container cta-section">
+<div class="cta-banner">
+<div>
+<p class="eyebrow">Your future is full of possibilities</p>
+<h2>Let's see where you can go.</h2>
+<p>Bring your curiosity. We'll help you take the next step.</p>
+</div>
+<a class="button button-cream" href="/registration">Start your application <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</a>
+<svg class="cta-spark" aria-hidden="true">
+<use href="/static/icons.svg#spark"/>
+</svg>
+</div>
+</section>{{end}}
+{{define "admin-nav"}}<aside class="admin-sidebar">
+<p class="eyebrow">University workspace</p>
+<nav aria-label="Administration">
+<a href="/admin" {{if eq .Tab "overview"}}aria-current="page"{{end}}>
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#layers"/>
+</svg>Overview</a>
+<a href="/admin?tab=applications" {{if eq .Tab "applications"}}aria-current="page"{{end}}>
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#cap"/>
+</svg>Applications <span>{{.TotalApplications}}</span>
+</a>
+<a href="/admin?tab=messages" {{if eq .Tab "messages"}}aria-current="page"{{end}}>
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#mail"/>
+</svg>Messages <span>{{.MessageCount}}</span>
+</a>
+<a href="/admin?tab=faculty" {{if eq .Tab "faculty"}}aria-current="page"{{end}}>
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#users"/>
+</svg>Faculty</a>
+<a href="/admin?tab=news" {{if eq .Tab "news"}}aria-current="page"{{end}}>
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#book"/>
+</svg>Campus news</a>
+<a href="/admin?tab=events" {{if eq .Tab "events"}}aria-current="page"{{end}}>
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#calendar"/>
+</svg>Events</a>
+</nav>
+<form action="/admin/logout" method="post">
+<input type="hidden" name="csrf" value="{{.CSRF}}">
+<button type="submit" class="button button-outline">Sign out <span aria-hidden="true">↗</span>
+</button>
+</form>
+</aside>{{end}}
