@@ -1,295 +1,276 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Submissions</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        :root {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --accent-primary: #2563eb;
-            --accent-secondary: #0d9488;
-            --border-color: #e2e8f0;
-            --danger-color: #ef4444;
-            --danger-hover: #dc2626;
-            --edit-hover: #1d4ed8;
-            --indigo-primary: #4f46e5;
-            --indigo-hover: #4338ca;
-        }
-
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.5;
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin: 40px 0 20px 0;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        h2:first-of-type {
-            margin-top: 0;
-            color: var(--accent-primary);
-        }
-        h2:nth-of-type(2) {
-            color: var(--accent-secondary);
-        }
-        h2:nth-of-type(3) {
-            color: var(--indigo-primary);
-        }
-
-        /* Header Container for Profile Edit & Add Button Alignment */
-        .section-header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin: 40px 0 20px 0;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 8px;
-        }
-        .section-header-container h2 {
-            margin: 0;
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
-        }
-
-        .data-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        .data-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-        }
-
-        .card-name {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 16px;
-        }
-
-        /* Data Fields Blueprint */
-        .field-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            padding: 6px 0;
-            border-bottom: 1px dashed var(--border-color);
-        }
-        .field-row:last-of-type {
-            border-bottom: none;
-        }
-        .field-label {
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-        .field-value {
-            color: var(--text-main);
-            font-weight: 400;
-            text-align: right;
-            padding-left: 15px;
-            word-break: break-all;
-        }
-
-        /* Message Box Specifics */
-        .message-box {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid var(--border-color);
-            flex-grow: 1;
-        }
-        .message-text {
-            font-size: 0.9rem;
-            color: var(--text-main);
-            background: #f1f5f9;
-            padding: 10px;
-            border-radius: 6px;
-            margin-top: 4px;
-            white-space: pre-wrap;
-        }
-
-        /* Form and Action Button Layout */
-        .card-actions {
-            margin-top: auto;
-            padding-top: 20px;
-        }
-
-        .btn-delete, .btn-edit, .btn-add {
-            border: none;
-            border-radius: 6px;
-            padding: 10px 16px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            text-align: center;
-            display: block;
-            text-decoration: none;
-        }
-
-        .btn-delete {
-            width: 100%;
-            background-color: var(--danger-color);
-            color: #ffffff;
-        }
-        .btn-delete:hover {
-            background-color: var(--danger-hover);
-        }
-
-        .btn-edit {
-            width: 100%;
-            background-color: var(--accent-primary);
-            color: #ffffff;
-        }
-        .btn-edit:hover {
-            background-color: var(--edit-hover);
-        }
-
-        /* Add New Button Style */
-        .btn-add {
-            background-color: var(--indigo-primary);
-            color: #ffffff;
-            font-size: 0.85rem;
-            padding: 8px 14px;
-        }
-        .btn-add:hover {
-            background-color: var(--indigo-hover);
-        }
-    </style>
-</head>
-<body>
-    <h2>Registration Submissions</h2>
-    <div class="grid-container">
-        {{range .Registrations}}
-        <div class="data-card">
-            <div class="card-name">{{.FirstName}} {{.MiddleName}} {{.LastName}}</div>
-                                    
-            <div class="field-row">
-                <span class="field-label">Email:</span>
-                <span class="field-value">{{.Email}}</span>
-            </div>
-            <div class="field-row">
-                <span class="field-label">Phone:</span>
-                <span class="field-value">{{.PhoneNo}}</span>
-            </div>
-            <div class="field-row">
-                <span class="field-label">Course:</span>
-                <span class="field-value">{{.CourseOfStudy}}</span>
-            </div>
-            <div class="field-row">
-                <span class="field-label">Nationality:</span>
-                <span class="field-value">{{.Nationality}}</span>
-            </div>
-            <div class="field-row">
-                <span class="field-label">State of Origin:</span>
-                <span class="field-value">{{.StateOfOrigin}}</span>
-            </div>
-            <div class="field-row">
-                <span class="field-label">LGA:</span>
-                <span class="field-value">{{.LGAOfOrigin}}</span>
-            </div>
-
-            <form action="/admin/delete-registration" method="post" class="card-actions" onsubmit="return confirm('Are you sure you want to delete this submission?');">
-                <input type="hidden" name="id" value="{{.ID}}">
-                <input type="submit" value="Delete Submission" class="btn-delete">
-            </form>
-        </div>
-        {{end}}
-    </div>
-                
-    <h2>Contact Messages</h2>
-    <div class="grid-container">
-        {{range .Contacts}}
-        <div class="data-card">
-            <div class="card-name">{{.FirstName}} {{.LastName}}</div>
-                                    
-            <div class="field-row">
-                <span class="field-label">Email:</span>
-                <span class="field-value">{{.Email}}</span>
-            </div>
-            <div class="field-row">
-                <span class="field-label">Phone:</span>
-                <span class="field-value">{{.PhoneNo}}</span>
-            </div>
-            <div class="field-row">
-                <span class="field-label">Address:</span>
-                <span class="field-value">{{.Address}}</span>
-            </div>
-                                    
-            <div class="message-box">
-                <span class="field-label">Message:</span>
-                <div class="message-text">{{.Message}}</div>
-            </div>
-
-            <form action="/admin/delete-contact" method="post" class="card-actions" onsubmit="return confirm('Are you sure you want to delete this message?');">
-                <input type="hidden" name="id" value="{{.ID}}">
-                <input type="submit" value="Delete Message" class="btn-delete">
-            </form>
-        </div>
-        {{end}}
-    </div>
-
-    <!-- Flex header container to align the section title and action link beautifully -->
-    <div class="section-header-container">
-        <h2>Profile Edit</h2>
-        <a href="/admin/add-teacher" class="btn-add">Add New Teacher</a>
-    </div>
-
-    <div class="grid-container">
-        {{range .Teachers}}
-        <div class="data-card">
-            <div class="card-name">{{.Name}}</div>
-                                    
-            <div class="field-row">
-                <span class="field-label">Subject:</span>
-                <span class="field-value">{{.Subject}}</span>
-            </div>
-            <div class="field-row">
-                <span class="field-label">Department:</span>
-                <span class="field-value">{{.Department}}</span>
-            </div>
-            <div class="field-row">
-                <span class="field-label">Img:</span>
-                <span class="field-value">{{.Image}}</span>
-            </div>
-                                     
-            <div class="card-actions">
-                <a href="/admin/edit-teacher?id={{.ID}}" class="btn-edit">Edit Profile</a>
-            </div>
-        </div>
-        {{end}}
-    </div>
-</body>
-</html>
+{{template "head" .}}<main id="main" class="container admin-layout">{{template "admin-nav" .}}<div class="admin-content">
+<div class="section-heading dashboard-heading">
+<div>
+<p class="eyebrow">University of Excellence · {{.AcademicYear}}</p>
+<h1>{{if eq .Tab "applications"}}Applications{{else if eq .Tab "messages"}}Your inbox{{else if eq .Tab "faculty"}}Faculty directory{{else if eq .Tab "news"}}Campus news{{else if eq .Tab "events"}}Campus events{{else}}Welcome to your workspace.{{end}}</h1>
+<p class="muted">{{if eq .Tab "applications"}}Help every applicant take their next step.{{else if eq .Tab "messages"}}Questions and conversations from your university community.{{else if eq .Tab "faculty"}}The people behind the learning experience.{{else if eq .Tab "news"}}Share the ideas and moments that matter.{{else if eq .Tab "events"}}Bring your university community together.{{else}}A little care for your community, all in one place.{{end}}</p>
+</div>
+<a href="/" class="text-link">View website ↗</a>
+</div>{{template "notices" .}}
+{{if eq .Tab "overview"}}<div class="metrics-grid">
+<article>
+<span>Total applications</span>
+<strong>{{.TotalApplications}}</strong>
+<a href="/admin?tab=applications">View applications ↗</a>
+</article>
+<article class="mint">
+<span>Awaiting a decision</span>
+<strong>{{.PendingApplications}}</strong>
+<span>Received or under review</span>
+</article>
+<article class="peach">
+<span>Accepted applications</span>
+<strong>{{.AcceptedApplications}}</strong>
+<span>Ready for their next step</span>
+</article>
+<article>
+<span>Contact messages</span>
+<strong>{{.MessageCount}}</strong>
+<a href="/admin?tab=messages">Open inbox ↗</a>
+</article>
+</div>
+<section class="dashboard-section">
+<div class="section-heading">
+<h2>Recent applications</h2>
+<a href="/admin?tab=applications" class="text-link">View all ↗</a>
+</div>
+<div class="table-scroll">
+<table class="data-table">
+<thead>
+<tr>
+<th>Applicant</th>
+<th>Programme</th>
+<th>Status</th>
+<th>Submitted</th>
+</tr>
+</thead>
+<tbody>{{range $i,$a:=.Registrations}}{{if lt $i 5}}<tr>
+<td>
+<strong>{{$a.FirstName}} {{$a.LastName}}</strong>
+<span>{{$a.Reference}}</span>
+</td>
+<td>{{$a.CourseOfStudy}}</td>
+<td>
+<span class="status-badge {{statusClass $a.Status}}">{{$a.Status}}</span>
+</td>
+<td>{{storedDate $a.CreatedAt}}</td>
+</tr>{{end}}{{else}}<tr>
+<td colspan="4" class="table-empty">Applications will appear here when students apply.</td>
+</tr>{{end}}</tbody>
+</table>
+</div>
+</section>
+<section class="dashboard-section">
+<h2>Make something happen.</h2>
+<div class="grid-three quick-actions">
+<a href="/admin/add-teacher">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#users"/>
+</svg>
+<h3>Add a faculty member</h3>
+<p>Introduce a new educator to the university.</p>
+<span>Get started ↗</span>
+</a>
+<a href="/admin/add-news">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#book"/>
+</svg>
+<h3>Share a university story</h3>
+<p>Publish news for your campus community.</p>
+<span>Get started ↗</span>
+</a>
+<a href="/admin/add-event">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#calendar"/>
+</svg>
+<h3>Create a campus event</h3>
+<p>Put the next shared experience on the calendar.</p>
+<span>Get started ↗</span>
+</a>
+</div>
+</section>
+{{else if eq .Tab "applications"}}<form method="get" action="/admin" class="filter-bar">
+<input type="hidden" name="tab" value="applications">
+<div class="search-field">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#search"/>
+</svg>
+<label class="sr-only" for="app-query">Search applications</label>
+<input id="app-query" type="search" name="q" value="{{.Query}}" placeholder="Name, email, programme, or reference">
+</div>
+<button class="button" type="submit">Search</button>
+<a href="/admin/export" class="button button-outline">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#download"/>
+</svg>Export CSV</a>
+</form>
+<p class="results-line">{{len .Registrations}} applications{{if .Query}} matching “{{.Query}}” <a href="/admin?tab=applications">Clear search ×</a>{{end}}</p>
+<div class="application-admin-list">{{range .Registrations}}<article class="admin-record">
+<div class="section-heading">
+<div>
+<p class="eyebrow">{{.Reference}}</p>
+<h2>{{.FirstName}} {{.MiddleName}} {{.LastName}}</h2>
+</div>
+<span class="status-badge {{statusClass .Status}}">{{.Status}}</span>
+</div>
+<dl class="record-details">
+<div>
+<dt>Programme</dt>
+<dd>{{.CourseOfStudy}}</dd>
+</div>
+<div>
+<dt>Email</dt>
+<dd>
+<a href="mailto:{{.Email}}">{{.Email}}</a>
+</dd>
+</div>
+<div>
+<dt>Phone</dt>
+<dd>{{.PhoneNo}}</dd>
+</div>
+<div>
+<dt>Nationality</dt>
+<dd>{{.Nationality}}</dd>
+</div>
+<div>
+<dt>Region / local area</dt>
+<dd>{{.StateOfOrigin}} {{.LGAOfOrigin}}</dd>
+</div>
+<div>
+<dt>Submitted</dt>
+<dd>{{storedDate .CreatedAt}}</dd>
+</div>
+</dl>
+<div class="record-actions">
+<form action="/admin/update-status" method="post" class="status-form">
+<input type="hidden" name="csrf" value="{{$.CSRF}}">
+<input type="hidden" name="id" value="{{.ID}}">
+<label for="status-{{.ID}}" class="sr-only">Status for {{.FirstName}} {{.LastName}}</label>
+<select name="status" id="status-{{.ID}}">
+<option {{if eq .Status "Received"}}selected{{end}}>Received</option>
+<option {{if eq .Status "Under review"}}selected{{end}}>Under review</option>
+<option {{if eq .Status "Accepted"}}selected{{end}}>Accepted</option>
+<option {{if eq .Status "Declined"}}selected{{end}}>Declined</option>
+</select>
+<button class="button button-small" type="submit">Save status</button>
+</form>
+<form action="/admin/delete-registration" method="post" data-confirm="Delete this application permanently?">
+<input type="hidden" name="csrf" value="{{$.CSRF}}">
+<input type="hidden" name="id" value="{{.ID}}">
+<button class="button button-danger button-small" type="submit">Delete</button>
+</form>
+</div>
+</article>{{else}}<div class="empty-state">
+<h2>No applications found.</h2>
+<p>New submissions will appear here.</p>
+</div>{{end}}</div>
+{{else if eq .Tab "messages"}}<div class="message-grid">{{range .Contacts}}<article class="admin-record message-card">
+<div>
+<span class="eyebrow">{{.Subject}}</span>
+<h2>{{.FirstName}} {{.LastName}}</h2>
+<a href="mailto:{{.Email}}">{{.Email}}</a>
+<p class="small muted">{{storedDate .CreatedAt}}{{if .PhoneNo}} · {{.PhoneNo}}{{end}}</p>
+</div>
+<p class="message-body">{{.Message}}</p>
+<div class="record-actions">
+<a href="mailto:{{.Email}}" class="text-link">Reply by email ↗</a>
+<form action="/admin/delete-contact" method="post" data-confirm="Delete this message permanently?">
+<input type="hidden" name="csrf" value="{{$.CSRF}}">
+<input type="hidden" name="id" value="{{.ID}}">
+<button class="button button-danger button-small">Delete</button>
+</form>
+</div>
+</article>{{else}}<div class="empty-state full-width">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#mail"/>
+</svg>
+<h2>A little quiet in the inbox.</h2>
+<p>Contact messages will arrive here.</p>
+</div>{{end}}</div>
+{{else if eq .Tab "faculty"}}<div class="section-heading">
+<p class="muted">{{len .Teachers}} faculty members</p>
+<a class="button button-small" href="/admin/add-teacher">Add faculty member +</a>
+</div>
+<div class="table-scroll">
+<table class="data-table">
+<thead>
+<tr>
+<th>Faculty member</th>
+<th>Subject</th>
+<th>School</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>{{range .Teachers}}<tr>
+<td>
+<div class="faculty-cell">
+<span class="small-avatar">{{initials .Name}}</span>
+<strong>{{.Name}}</strong>
+</div>
+</td>
+<td>{{.Subject}}</td>
+<td>{{.Department}}</td>
+<td>
+<div class="table-actions">
+<a class="text-link" href="/admin/edit-teacher?id={{.ID}}">Edit ↗</a>
+<form action="/admin/delete-teacher" method="post" data-confirm="Delete this faculty profile?">
+<input type="hidden" name="csrf" value="{{$.CSRF}}">
+<input type="hidden" name="id" value="{{.ID}}">
+<button type="submit" class="plain-danger">Delete</button>
+</form>
+</div>
+</td>
+</tr>{{else}}<tr>
+<td colspan="4" class="table-empty">Add your first faculty profile to start the directory.</td>
+</tr>{{end}}</tbody>
+</table>
+</div>
+{{else if eq .Tab "news"}}<div class="section-heading">
+<p class="muted">{{len .NewsItem}} university stories</p>
+<a class="button button-small" href="/admin/add-news">Publish a story +</a>
+</div>
+<div class="admin-record-list">{{range .NewsItem}}<article class="admin-record">
+<div class="news-meta">
+<span>{{.Category}}</span>
+<time>{{date .Date}}</time>
+</div>
+<h2>{{.Headline}}</h2>
+<p>{{excerpt .Article}}</p>
+<div class="record-actions">
+<div class="button-row">
+<a href="/admin/edit-news?id={{.ID}}" class="button button-small button-outline">Edit story</a>
+<a href="/news/{{.ID}}" class="text-link">View published story ↗</a>
+</div>
+<form action="/admin/delete-news" method="post" data-confirm="Delete this published story?">
+<input type="hidden" name="csrf" value="{{$.CSRF}}">
+<input type="hidden" name="id" value="{{.ID}}">
+<button type="submit" class="button button-danger button-small">Delete</button>
+</form>
+</div>
+</article>{{else}}<div class="empty-state">
+<h2>A story waiting to be told.</h2>
+<p>Publish your first campus announcement.</p>
+</div>{{end}}</div>
+{{else if eq .Tab "events"}}<div class="section-heading">
+<p class="muted">{{len .Events}} campus events</p>
+<a class="button button-small" href="/admin/add-event">Create an event +</a>
+</div>
+<div class="admin-record-list">{{range .Events}}<article class="admin-record">
+<p class="eyebrow">{{.Category}}</p>
+<h2>{{.Title}}</h2>
+<p>{{eventTime .Start}} · {{.Location}}</p>
+<p>{{excerpt .Description}}</p>
+<div class="record-actions">
+<a href="/admin/edit-event?id={{.ID}}" class="button button-small button-outline">Edit event</a>
+<form action="/admin/delete-event" method="post" data-confirm="Delete this campus event?">
+<input type="hidden" name="csrf" value="{{$.CSRF}}">
+<input type="hidden" name="id" value="{{.ID}}">
+<button type="submit" class="button button-danger button-small">Delete</button>
+</form>
+</div>
+</article>{{else}}<div class="empty-state">
+<h2>Start a new experience.</h2>
+<p>Add an event to the university calendar.</p>
+</div>{{end}}</div>{{end}}
+</div>
+</main>{{template "footer" .}}
