@@ -1,470 +1,126 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registration - University of Excellence</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #2d3748;
-            background-color: #f7fafc;
-            padding: 0 0 60px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .navigation {
-            width: 100%;
-            background-color: #0f4c81; 
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            margin-bottom: 40px;
-        }
-
-        .navigation ul {
-            max-width: 800px;
-            margin: 0 auto;
-            list-style: none;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 0 20px;
-        }
-
-        .navigation li {
-            display: inline-block;
-        }
-
-        .navigation a {
-            display: block;
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            padding: 18px 15px;
-            transition: all 0.3s ease;
-        }
-
-        .navigation a:hover {
-            color: #d69e2e; 
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        #reg {
-            color: #d69e2e;
-            border-bottom: 2px solid #d69e2e;
-        }
-
-        form {
-            max-width: 750px;
-            width: 100%;
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            border-top: 6px solid #0f4c81;
-        }
-
-        form h2 {
-            color: #0f4c81;
-            margin-bottom: 5px;
-            font-size: 1.8rem;
-            text-align: center;
-        }
-
-        form p.subtitle {
-            color: #718096;
-            font-size: 0.95rem;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            color: #0f4c81;
-            font-weight: 700;
-            margin: 25px 0 15px 0;
-            padding-bottom: 5px;
-            border-bottom: 2px solid #e2e8f0;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .form-group {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #4a5568;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        select {
-            width: 100%;
-            padding: 11px 14px;
-            border: 1px solid #cbd5e0;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            color: #2d3748;
-            background-color: #ffffff;
-            transition: all 0.25s ease;
-        }
-
-        select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://w3.org' width='10' height='6' viewBox='0 0 10 6'><path fill='%234a5568' d='M0 0l5 5 5-5z'/></svg>");
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-            background-size: 10px 6px;
-            padding-right: 35px;
-        }
-
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        select:focus {
-            outline: none;
-            border-color: #0f4c81;
-            box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.15);
-        }
-
-        input[type="submit"] {
-            width: 100%;
-            background-color: #0f4c81;
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            margin-top: 25px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0b3860;
-        }
-
-        @media (max-width: 600px) {
-            .navigation ul {
-                flex-direction: column;
-                padding: 10px 0;
-            }
-            .navigation a {
-                padding: 10px 20px;
-                text-align: center;
-            }
-            .form-row {
-                flex-direction: column;
-                gap: 15px;
-            }
-            form {
-                padding: 25px 20px;
-                border-radius: 0;
-            }
-        }
-    </style>
-</head>
-<body>
-    {{.}}
-    <nav class="navigation">
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about" id="about">About Us</a></li>
-            <li><a href="/timetable" id="time">Time Schedule</a></li>
-            <li><a href="/contact" id="con">Contact</a></li>
-            <li><a href="/registration" id="reg">Registration</a></li>
-            <li><a href="/news" id="nws">News</a></li>
-            <li><a href="/profile" id="pf">Profile</a></li>
-        </ul>
-    </nav>
-
-    <form action="/registration" method="post">
-        <h2>Student Registration Portal</h2>
-        <p class="subtitle">Please fill out the details accurately to enroll in your semester platform.</p>
-
-        <div class="section-title">Personal Information</div>
-        
-        <div class="form-row">
-            <div class="form-group">
-                <label for="fname">First Name</label>
-                <input type="text" id="fname" name="fname" required>
-            </div>
-            <div class="form-group">
-                <label for="mname">Middle Name</label>
-                <input type="text" id="mname" name="mname">
-            </div>
-            <div class="form-group">
-                <label for="lname">Last Name</label>
-                <input type="text" id="lname" name="lname" required>
-            </div>
-        </div>
-
-        <div class="section-title">Contact & Academic Info</div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label for="em">Email Address</label>
-                <input type="email" name="em" id="em" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="text" name="phone" id="phone" required>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label for="course">Course Of Study</label>
-                <input type="text" id="course" name="course" required>
-            </div>
-        </div>
-
-        <div class="section-title">Origin Details</div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label for="nationality">Nationality</label>
-                <select id="nationality" name="nationality" required>
-                    <option value="" disabled selected hidden>Select Nationality</option>
-                    <option value="afghanistan">Afghanistan</option>
-                    <option value="albania">Albania</option>
-                    <option value="algeria">Algeria</option>
-                    <option value="andorra">Andorra</option>
-                    <option value="angola">Angola</option>
-                    <option value="antigua-and-barbuda">Antigua and Barbuda</option>
-                    <option value="argentina">Argentina</option>
-                    <option value="armenia">Armenia</option>
-                    <option value="australia">Australia</option>
-                    <option value="austria">Austria</option>
-                    <option value="azerbaijan">Azerbaijan</option>
-                    <option value="bahamas">Bahamas</option>
-                    <option value="bahrain">Bahrain</option>
-                    <option value="bangladesh">Bangladesh</option>
-                    <option value="barbados">Barbados</option>
-                    <option value="belarus">Belarus</option>
-                    <option value="belgium">Belgium</option>
-                    <option value="belize">Belize</option>
-                    <option value="benin">Benin</option>
-                    <option value="bhutan">Bhutan</option>
-                    <option value="bolivia">Bolivia</option>
-                    <option value="bosnia-and-herzegovina">Bosnia and Herzegovina</option>
-                    <option value="botswana">Botswana</option>
-                    <option value="brazil">Brazil</option>
-                    <option value="brunei">Brunei</option>
-                    <option value="bulgaria">Bulgaria</option>
-                    <option value="burkina-faso">Burkina Faso</option>
-                    <option value="burundi">Burundi</option>
-                    <option value="cabo-verde">Cabo Verde</option>
-                    <option value="cambodia">Cambodia</option>
-                    <option value="cameroon">Cameroon</option>
-                    <option value="canada">Canada</option>
-                    <option value="central-african-republic">Central African Republic</option>
-                    <option value="chad">Chad</option>
-                    <option value="chile">Chile</option>
-                    <option value="china">China</option>
-                    <option value="colombia">Colombia</option>
-                    <option value="comoros">Comoros</option>
-                    <option value="congo-brazzaville">Congo (Congo-Brazzaville)</option>
-                    <option value="costa-rica">Costa Rica</option>
-                    <option value="cote-divoire">Côte d'Ivoire (Ivory Coast)</option>
-                    <option value="croatia">Croatia</option>
-                    <option value="cuba">Cuba</option>
-                    <option value="cyprus">Cyprus</option>
-                    <option value="czechia">Czechia (Czech Republic)</option>
-                    <option value="democratic-republic-of-the-congo">Democratic Republic of the Congo</option>
-                    <option value="denmark">Denmark</option>
-                    <option value="djibouti">Djibouti</option>
-                    <option value="dominica">Dominica</option>
-                    <option value="dominican-republic">Dominican Republic</option>
-                    <option value="ecuador">Ecuador</option>
-                    <option value="egypt">Egypt</option>
-                    <option value="el-salvador">El Salvador</option>
-                    <option value="equatorial-guinea">Equatorial Guinea</option>
-                    <option value="eritrea">Eritrea</option>
-                    <option value="estonia">Estonia</option>
-                    <option value="eswatini">Eswatini (Swaziland)</option>
-                    <option value="ethiopia">Ethiopia</option>
-                    <option value="fiji">Fiji</option>
-                    <option value="finland">Finland</option>
-                    <option value="france">France</option>
-                    <option value="gabon">Gabon</option>
-                    <option value="gambia">Gambia</option>
-                    <option value="georgia">Georgia</option>
-                    <option value="germany">Germany</option>
-                    <option value="ghana">Ghana</option>
-                    <option value="greece">Greece</option>
-                    <option value="grenada">Grenada</option>
-                    <option value="guatemala">Guatemala</option>
-                    <option value="guinea">Guinea</option>
-                    <option value="guinea-bissau">Guinea-Bissau</option>
-                    <option value="guyana">Guyana</option>
-                    <option value="haiti">Haiti</option>
-                    <option value="honduras">Honduras</option>
-                    <option value="hungary">Hungary</option>
-                    <option value="iceland">Iceland</option>
-                    <option value="india">India</option>
-                    <option value="indonesia">Indonesia</option>
-                    <option value="iran">Iran</option>
-                    <option value="iraq">Iraq</option>
-                    <option value="ireland">Ireland</option>
-                    <option value="israel">Israel</option>
-                    <option value="italy">Italy</option>
-                    <option value="jamaica">Jamaica</option>
-                    <option value="japan">Japan</option>
-                    <option value="jordan">Jordan</option>
-                    <option value="kazakhstan">Kazakhstan</option>
-                    <option value="kenya">Kenya</option>
-                    <option value="kiribati">Kiribati</option>
-                    <option value="kuwait">Kuwait</option>
-                    <option value="kyrgyzstan">Kyrgyzstan</option>
-                    <option value="laos">Laos</option>
-                    <option value="latvia">Latvia</option>
-                    <option value="lebanon">Lebanon</option>
-                    <option value="lesotho">Lesotho</option>
-                    <option value="liberia">Liberia</option>
-                    <option value="libya">Libya</option>
-                    <option value="liechtenstein">Liechtenstein</option>
-                    <option value="lithuania">Lithuania</option>
-                    <option value="luxembourg">Luxembourg</option>
-                    <option value="madagascar">Madagascar</option>
-                    <option value="malawi">Malawi</option>
-                    <option value="malaysia">Malaysia</option>
-                    <option value="maldives">Maldives</option>
-                    <option value="mali">Mali</option>
-                    <option value="malta">Malta</option>
-                    <option value="marshall-islands">Marshall Islands</option>
-                    <option value="mauritania">Mauritania</option>
-                    <option value="mauritius">Mauritius</option>
-                    <option value="mexico">Mexico</option>
-                    <option value="micronesia">Micronesia</option>
-                    <option value="moldova">Moldova</option>
-                    <option value="monaco">Monaco</option>
-                    <option value="mongolia">Mongolia</option>
-                    <option value="montenegro">Montenegro</option>
-                    <option value="morocco">Morocco</option>
-                    <option value="mozambique">Mozambique</option>
-                    <option value="myanmar">Myanmar (Burma)</option>
-                    <option value="namibia">Namibia</option>
-                    <option value="nauru">Nauru</option>
-                    <option value="nepal">Nepal</option>
-                    <option value="netherlands">Netherlands</option>
-                    <option value="new-zealand">New Zealand</option>
-                    <option value="nicaragua">Nicaragua</option>
-                    <option value="niger">Niger</option>
-                    <option value="nigeria">Nigeria</option>
-                    <option value="north-korea">North Korea</option>
-                    <option value="north-macedonia">North Macedonia</option>
-                    <option value="norway">Norway</option>
-                    <option value="oman">Oman</option>
-                    <option value="pakistan">Pakistan</option>
-                    <option value="palau">Palau</option>
-                    <option value="palestine">Palestine</option>
-                    <option value="panama">Panama</option>
-                    <option value="papua-new-guinea">Papua New Guinea</option>
-                    <option value="paraguay">Paraguay</option>
-                    <option value="peru">Peru</option>
-                    <option value="philippines">Philippines</option>
-                    <option value="poland">Poland</option>
-                    <option value="portugal">Portugal</option>
-                    <option value="qatar">Qatar</option>
-                    <option value="romania">Romania</option>
-                    <option value="russia">Russia</option>
-                    <option value="rwanda">Rwanda</option>
-                    <option value="saint-kitts-and-nevis">Saint Kitts and Nevis</option>
-                    <option value="saint-lucia">Saint Lucia</option>
-                    <option value="saint-vincent-and-the-grenadines">Saint Vincent and the Grenadines</option>
-                    <option value="samoa">Samoa</option>
-                    <option value="san-marino">San Marino</option>
-                    <option value="sao-tome-and-principe">Sao Tome and Principe</option>
-                    <option value="saudi-arabia">Saudi Arabia</option>
-                    <option value="senegal">Senegal</option>
-                    <option value="serbia">Serbia</option>
-                    <option value="seychelles">Seychelles</option>
-                    <option value="sierra-leone">Sierra Leone</option>
-                    <option value="singapore">Singapore</option>
-                    <option value="slovakia">Slovakia</option>
-                    <option value="slovenia">Slovenia</option>
-                    <option value="solomon-islands">Solomon Islands</option>
-                    <option value="somalia">Somalia</option>
-                    <option value="south-africa">South Africa</option>
-                    <option value="south-korea">South Korea</option>
-                    <option value="south-suban">South Sudan</option>
-                    <option value="spain">Spain</option>
-                    <option value="sri-lanka">Sri Lanka</option>
-                    <option value="sudan">Sudan</option>
-                    <option value="suriname">Suriname</option>
-                    <option value="sweden">Sweden</option>
-                    <option value="switzerland">Switzerland</option>
-                    <option value="syria">Syria</option>
-                    <option value="taiwan">Taiwan</option>
-                    <option value="tajikistan">Tajikistan</option>
-                    <option value="tanzania">Tanzania</option>
-                    <option value="thailand">Thailand</option>
-                    <option value="timor-leste">Timor-Leste</option>
-                    <option value="togo">Togo</option>
-                    <option value="tonga">Tonga</option>
-                    <option value="trinidad-and-tobago">Trinidad and Tobago</option>
-                    <option value="tunisia">Tunisia</option>
-                    <option value="turkey">Turkey (Türkiye)</option>
-                    <option value="turkmenistan">Turkmenistan</option>
-                    <option value="tuvalu">Tuvalu</option>
-                    <option value="uganda">Uganda</option>
-                    <option value="ukraine">Ukraine</option>
-                    <option value="united-arab-emirates">United Arab Emirates (UAE)</option>
-                    <option value="united-kingdom">United Kingdom (UK)</option>
-                    <option value="united-states">United States of America (USA)</option>
-                    <option value="uruguay">Uruguay</option>
-                    <option value="uzbekistan">Uzbekistan</option>
-                    <option value="vanuatu">Vanuatu</option>
-                    <option value="vatican-city">Vatican City (Holy See)</option>
-                    <option value="venezuela">Venezuela</option>
-                    <option value="vietnam">Vietnam</option>
-                    <option value="yemen">Yemen</option>
-                    <option value="zambia">Zambia</option>
-                    <option value="background">Zimbabwe</option>
-
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="sorigin">State Of Origin</label>
-                <input type="text" id="sorigin" name="sorigin" required>
-            </div>
-            <div class="form-group">
-                <label for="lorigin">LGA Origin</label>
-                <input type="text" id="lorigin" name="lorigin" required>
-            </div>
-        </div>
-
-        <input type="submit" value="Submit Registration">
-    </form>
-</body>
-</html>
+{{template "head" .}}<main id="main">
+<section class="container page-hero compact">
+<a href="/admissions" class="back-link">← Admissions guide</a>
+<p class="eyebrow">Your application · {{.AcademicYear}}</p>
+<h1>Start something<br>
+<em>extraordinary.</em>
+</h1>
+<p>Let's get to know you. Complete your details to take the first step towards Excellence.</p>
+</section>
+<section class="container form-layout">
+<div>{{template "notices" .}}{{if .Reference}}<div class="confirmation-card">
+<span class="confirmation-icon">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#check"/>
+</svg>
+</span>
+<h2>Your next chapter is underway.</h2>
+<p>Keep this reference safe. Use it with your email address to follow your application.</p>
+<span class="eyebrow">Your application reference</span>
+<strong class="application-reference">{{.Reference}}</strong>
+<div class="button-row">
+<a class="button" href="/application-status">Track your application <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</a>
+<a class="text-link" href="/">Back to home</a>
+</div>
+</div>{{else}}<form action="/registration" method="post" class="form-card">
+<input type="hidden" name="csrf" value="{{.CSRF}}">
+<div class="form-section-title">
+<span>01</span>
+<div>
+<h2>A little about you.</h2>
+<p>Your name as you would like it on your application.</p>
+</div>
+</div>
+<div class="form-grid three">
+<div class="field">
+<label for="fname">First name <span>*</span>
+</label>
+<input id="fname" name="fname" autocomplete="given-name" value="{{index .Form "fname"}}" maxlength="100" required>
+</div>
+<div class="field">
+<label for="mname">Middle name <span class="optional">Optional</span>
+</label>
+<input id="mname" name="mname" autocomplete="additional-name" value="{{index .Form "mname"}}" maxlength="100">
+</div>
+<div class="field">
+<label for="lname">Last name <span>*</span>
+</label>
+<input id="lname" name="lname" autocomplete="family-name" value="{{index .Form "lname"}}" maxlength="100" required>
+</div>
+</div>
+<div class="form-section-title">
+<span>02</span>
+<div>
+<h2>Stay connected.</h2>
+<p>Use an email address you can access.</p>
+</div>
+</div>
+<div class="form-grid">
+<div class="field">
+<label for="em">Email address <span>*</span>
+</label>
+<input id="em" name="em" type="email" autocomplete="email" value="{{index .Form "em"}}" maxlength="150" required>
+</div>
+<div class="field">
+<label for="phone">Phone number <span>*</span>
+</label>
+<input id="phone" name="phone" type="tel" autocomplete="tel" value="{{index .Form "phone"}}" maxlength="40" required>
+</div>
+<div class="field">
+<label for="nationality">Nationality <span>*</span>
+</label>
+<input id="nationality" name="nationality" placeholder="e.g. Nigerian" value="{{index .Form "nationality"}}" maxlength="100" required>
+</div>
+<div class="field">
+<label for="sorigin">Home state / region <span class="optional">Optional</span>
+</label>
+<input id="sorigin" name="sorigin" autocomplete="address-level1" value="{{index .Form "sorigin"}}" maxlength="100">
+</div>
+<div class="field full-width">
+<label for="lorigin">Local area / city <span class="optional">Optional</span>
+</label>
+<input id="lorigin" name="lorigin" autocomplete="address-level2" value="{{index .Form "lorigin"}}" maxlength="100">
+</div>
+</div>
+<div class="form-section-title">
+<span>03</span>
+<div>
+<h2>Choose your direction.</h2>
+<p>A programme that fits your interests and ambitions.</p>
+</div>
+</div>
+<div class="field">
+<label for="course">Your programme <span>*</span>
+</label>
+<select id="course" name="course" required>
+<option value="">Choose an undergraduate programme</option>{{range .Programs}}<option value="{{.Name}}" {{if eq (index $.Form "course") .Name}}selected{{end}}>{{.Name}} · {{.Degree}}</option>{{end}}</select>
+</div>
+<p class="form-note">Your details are saved for the university admissions team to review. Fields marked * are required.</p>
+<button class="button" type="submit">Submit application <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</button>
+</form>{{end}}</div>
+<aside class="form-sidebar">
+<div class="info-card">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#spark"/>
+</svg>
+<h3>Every journey<br>starts somewhere.</h3>
+<p>You don't need to have everything figured out. This is a first step towards discovering what's possible.</p>
+</div>
+<div class="sidebar-note">
+<h3>Need a hand?</h3>
+<p>We're here to help with your application.</p>
+<a href="/contact" class="text-link">Contact admissions ↗</a>
+</div>
+<div class="sidebar-note">
+<h3>Already applied?</h3>
+<a href="/application-status" class="text-link">Track your application ↗</a>
+</div>
+</aside>
+</section>
+</main>{{template "footer" .}}
