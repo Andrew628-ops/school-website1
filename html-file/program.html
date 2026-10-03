@@ -1,0 +1,69 @@
+{{template "head" .}}<main id="main">
+<section class="container page-hero program-hero">
+<a href="/programs" class="back-link">← All programmes</a>
+<p class="eyebrow">{{.Program.School}}</p>
+<h1>{{.Program.Name}}</h1>
+<p>{{.Program.Summary}}</p>
+<div class="button-row">
+<a href="/registration?program={{.Program.Slug}}" class="button">Apply for this programme <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</a>
+<a class="text-link" href="/contact">Ask a question ↗</a>
+</div>
+</section>
+<section class="container program-facts">
+<div>
+<span>Qualification</span>
+<strong>{{.Program.Degree}}</strong>
+</div>
+<div>
+<span>Duration</span>
+<strong>{{.Program.Duration}}</strong>
+</div>
+<div>
+<span>Study mode</span>
+<strong>Full-time, on campus</strong>
+</div>
+<div>
+<span>Academic year</span>
+<strong>{{.AcademicYear}}</strong>
+</div>
+</section>
+<section class="section container detail-grid">
+<div class="prose">
+<p class="eyebrow">A closer look</p>
+<h2>About the programme.</h2>
+<p>{{.Program.Description}}</p>
+<h2>What you'll explore.</h2>
+<ul class="module-list">{{range .Program.Modules}}<li>
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#check"/>
+</svg>{{.}}</li>{{end}}</ul>
+<h2>Where it could take you.</h2>
+<p>Build a foundation for further study and careers such as:</p>
+<div class="tag-list">{{range .Program.Careers}}<span>{{.}}</span>{{end}}</div>
+</div>
+<aside class="detail-sidebar">
+<div class="info-card">
+<svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#cap"/>
+</svg>
+<h3>Your next step.</h3>
+<p>Review the application process, then tell us a little about yourself and your academic interests.</p>
+<a href="/admissions" class="text-link">Admissions guide <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</a>
+</div>
+<div class="info-card white">
+<h3>Plan your week.</h3>
+<p>Explore the sample teaching schedule for this programme.</p>
+<a href="/timetable?program={{.Program.Slug}}" class="text-link">View timetable <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</a>
+</div>
+<p class="small muted">Programme content is illustrative for this student project. Professional careers may require further qualifications.</p>
+</aside>
+</section>{{template "cta" .}}</main>{{template "footer" .}}
