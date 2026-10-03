@@ -1,0 +1,16 @@
+{{template "head" .}}<main id="main">
+<article class="container article-page">
+<a href="/news" class="back-link">← All university stories</a>
+<div class="news-meta">
+<span>{{.Article.Category}}</span>
+<time>{{date .Article.Date}}</time>
+</div>
+<h1>{{.Article.Headline}}</h1>{{if .Article.Image}}<img src="{{.Article.Image}}" alt="" class="article-image">{{end}}<div class="prose article-body">{{range paragraphs .Article.Article}}<p>{{.}}</p>{{end}}</div>
+<div class="article-end">
+<span class="eyebrow">University of Excellence</span>
+<a class="text-link" href="/news">Explore more stories <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</a>
+</div>
+</article>{{template "cta" .}}</main>{{template "footer" .}}
