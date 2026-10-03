@@ -1,0 +1,48 @@
+{{template "head" .}}<main id="main">
+<section class="container page-hero compact">
+<p class="eyebrow">Explore Excellence</p>
+<h1>A little curiosity<br>goes a <em>long way.</em>
+</h1>
+<form action="/search" class="search-form page-search">
+<label for="query" class="sr-only">Search university</label>
+<input id="query" type="search" name="q" value="{{.Query}}" placeholder="Programmes, people, stories…" required>
+<button type="submit" class="button">Search <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#search"/>
+</svg>
+</button>
+</form>
+</section>
+<section class="container search-results">{{if .Query}}<p class="results-line">{{.SearchCount}} results for “{{.Query}}”</p>{{range .SearchPages}}<a href="{{.URL}}" class="search-result">
+<span class="eyebrow">University information</span>
+<h2>{{.Title}} <span aria-hidden="true">↗</span>
+</h2>
+<p>{{.Description}}</p>
+</a>{{end}}{{range .Programs}}<a href="/programs/{{.Slug}}" class="search-result">
+<span class="eyebrow">Programme · {{.School}}</span>
+<h2>{{.Name}} <span aria-hidden="true">↗</span>
+</h2>
+<p>{{.Summary}}</p>
+</a>{{end}}{{range .NewsItem}}<a href="/news/{{.ID}}" class="search-result">
+<span class="eyebrow">University story · {{.Category}}</span>
+<h2>{{.Headline}} <span aria-hidden="true">↗</span>
+</h2>
+<p>{{excerpt .Article}}</p>
+</a>{{end}}{{range .Teachers}}<a href="/profile?q={{urlquery .Name}}" class="search-result">
+<span class="eyebrow">Faculty · {{.Department}}</span>
+<h2>{{.Name}} <span aria-hidden="true">↗</span>
+</h2>
+<p>{{.Subject}}</p>
+</a>{{end}}{{range .Events}}<a href="/events" class="search-result">
+<span class="eyebrow">Campus event · {{date .Start}}</span>
+<h2>{{.Title}} <span aria-hidden="true">↗</span>
+</h2>
+<p>{{excerpt .Description}}</p>
+</a>{{end}}{{if eq .SearchCount 0}}<div class="empty-state">
+<h2>No results this time.</h2>
+<p>Try a broader keyword, such as “admissions” or “computing”.</p>
+</div>{{end}}{{else}}<div class="tag-list">
+<a href="/search?q=admissions">Admissions ↗</a>
+<a href="/search?q=computing">Computing ↗</a>
+<a href="/search?q=campus">Campus life ↗</a>
+</div>{{end}}</section>
+</main>{{template "footer" .}}
