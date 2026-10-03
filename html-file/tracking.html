@@ -1,0 +1,43 @@
+{{template "head" .}}<main id="main">
+<section class="container page-hero compact">
+<p class="eyebrow">Application progress</p>
+<h1>Follow your<br>
+<em>next chapter.</em>
+</h1>
+<p>Enter your reference and application email to see the latest update from our admissions team.</p>
+</section>
+<section class="container form-layout tracking-layout">
+<div>{{template "notices" .}}<form action="/application-status" method="post" class="form-card">
+<input type="hidden" name="csrf" value="{{.CSRF}}">
+<div class="field">
+<label for="reference">Application reference</label>
+<input id="reference" name="reference" value="{{index .Form "reference"}}" placeholder="UE-XXXXXXXXXXXX" maxlength="30" required autocapitalize="characters" spellcheck="false">
+</div>
+<div class="field">
+<label for="em">Email used to apply</label>
+<input id="em" name="em" type="email" autocomplete="email" value="{{index .Form "em"}}" maxlength="150" required>
+</div>
+<button class="button" type="submit">Check my application <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#arrow"/>
+</svg>
+</button>
+</form>{{with .Application}}<div class="application-result">
+<div class="section-heading">
+<p class="eyebrow">{{.Reference}}</p>
+<span class="status-badge {{statusClass .Status}}">{{.Status}}</span>
+</div>
+<h2>Hello, {{.FirstName}}.</h2>
+<p>Your application for <strong>{{.CourseOfStudy}}</strong> is currently <strong>{{.Status}}</strong>.</p>
+<p class="muted">Submitted {{storedDate .CreatedAt}}</p>
+<div class="status-explanation">{{if eq .Status "Accepted"}}Your application has been accepted. Contact the admissions team for the next enrolment steps.{{else if eq .Status "Declined"}}The admissions team has completed its review. Contact the team if you would like to discuss your options.{{else if eq .Status "Under review"}}The admissions team is reviewing your details. Check this page again for the next update.{{else}}Your application is safely in our system and is waiting for review.{{end}}</div>
+</div>{{end}}</div>
+<aside>
+<div class="info-card">
+<h3>Keep your reference close.</h3>
+<p>Your reference appeared on the confirmation page after you submitted your application.</p>
+<p>For help finding it, contact the university using the email you applied with.</p>
+<a href="/contact" class="text-link">Get application help ↗</a>
+</div>
+</aside>
+</section>
+</main>{{template "footer" .}}
