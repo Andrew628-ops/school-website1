@@ -1,0 +1,12 @@
+# Local build output
+/school-website1
+/university-of-excellence
+
+# SQLite runtime files
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Local configuration
+.env
+.env.local
