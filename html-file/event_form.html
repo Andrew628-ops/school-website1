@@ -1,0 +1,36 @@
+{{template "head" .}}<main id="main" class="container editor-page">
+<a href="/admin?tab=events" class="back-link">← Campus events</a>
+<p class="eyebrow">University workspace</p>
+<h1>{{.Title}}</h1>{{template "notices" .}}<form method="post" action="{{if .Editing}}/admin/edit-event{{else}}/admin/add-event{{end}}" class="form-card">
+<input type="hidden" name="csrf" value="{{.CSRF}}">{{if .Editing}}<input type="hidden" name="id" value="{{.Event.ID}}">{{end}}<div class="field">
+<label for="title">Event title</label>
+<input id="title" name="title" value="{{index .Form "title"}}" maxlength="150" required>
+</div>
+<div class="form-grid">
+<div class="field">
+<label for="category">Category</label>
+<input id="category" name="category" value="{{index .Form "category"}}" maxlength="100" required placeholder="Open day, research, campus life…">
+</div>
+<div class="field">
+<label for="starts_at">Start date and time (Casablanca)</label>
+<input id="starts_at" name="starts_at" type="datetime-local" value="{{index .Form "starts_at"}}" required>
+</div>
+</div>
+<div class="field">
+<label for="location">Location</label>
+<input id="location" name="location" value="{{index .Form "location"}}" maxlength="150" required>
+</div>
+<div class="field">
+<label for="description">Event description</label>
+<textarea id="description" name="description" rows="6" maxlength="10000" required>{{index .Form "description"}}</textarea>
+</div>
+<p class="field-hint">Upcoming events appear on the public calendar with a downloadable two-hour calendar invitation.</p>
+<div class="button-row">
+<button type="submit" class="button">Save event <svg class="icon" aria-hidden="true">
+<use href="/static/icons.svg#check"/>
+</svg>
+</button>
+<a href="/admin?tab=events" class="text-link">Cancel</a>
+</div>
+</form>
+</main>{{template "footer" .}}
